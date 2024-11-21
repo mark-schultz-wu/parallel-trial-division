@@ -16,7 +16,7 @@ def trial_division(N):
         factors.append(2)
         N //= 2
     for i in tqdm(range(3, sqrt_N, 2)):
-        if N % i == 0:
+        while N % i == 0:
             factors.append(i)
             N //= i
         if N == 1:
