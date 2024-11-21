@@ -1,5 +1,5 @@
 use clap::Parser;
-use parallel_trial_division::{parallel_factorization, serial_factorization};
+use trial_division::{parallel_factorization, serial_factorization};
 use std::time::Instant;
 
 #[derive(Parser)]
