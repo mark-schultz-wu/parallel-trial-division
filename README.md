@@ -18,17 +18,11 @@ These machines are
 * "Laptop": Intel i7 1165G7 (4  cores, 2.8GHz) and 16GB of RAM, and
 * "Desktop": Ryzen 9 5900X  (12 cores, 3.70 GHz) with 32GB of RAM.
 
-| Implementation (Laptop) | Time (s) |
-| --- | --- |
-| Serial Python | 908 |
-| Serial Rust | 20.86 |
-| Parallel Rust | 10.81 |
-
-| Implementation (Desktop) | Time (s) |
-| --- | --- |
-| Serial Python | 689 |
-| Serial Rust | 16.78 |
-| Parallel Rust | 2.53 |
+| Implementation | Laptop Time (s) | Desktop Time (s)|
+| --- | --- | --- |
+| Serial Python | 908 | 689|
+| Serial Rust | 20.86 | 16.78 |
+| Parallel Rust | 10.81 | 2.53|
 
 ## Usage
 
