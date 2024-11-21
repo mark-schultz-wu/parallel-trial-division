@@ -1,5 +1,5 @@
 use rayon::prelude::*;
-use std::collections::HashMap;
+use std::{cmp::Ordering, collections::HashMap, fmt};
 
 #[derive(Debug, Clone, Default)]
 pub struct PartialFactorization {
@@ -28,7 +28,9 @@ impl PartialFactorization {
         PartialFactorization { number, factors }
     }
     pub fn increment(&mut self, key: u128) {
-        *self.factors.entry(key).or_insert(0) += 1;
+        if key != 1 {
+            *self.factors.entry(key).or_insert(0) += 1;
+        }
     }
 }
 
@@ -40,6 +42,22 @@ impl Factorization {
             int *= exp_factor;
         }
         int == self.number
+    }
+}
+
+impl fmt::Display for Factorization {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        for (count, (&key, &value)) in self.factors.iter().enumerate() {
+            if count > 0 {
+                write!(f, " * ")?;
+            }
+            match value.cmp(&1) {
+                Ordering::Greater => write!(f, "{}^{}", key, value)?,
+                Ordering::Equal => write!(f, "{}", key)?,
+                Ordering::Less => unreachable!(),
+            }
+        }
+        write!(f, "")
     }
 }
 
@@ -79,9 +97,8 @@ pub fn parallel_factorization(int: u128) -> Factorization {
         n /= 2;
     }
     let sqrt_n: u64 = 1 << ((1 + n.ilog2()) >> 1);
-    const M13: u128 = (1 << 13) - 1;
     let possible_factors: Vec<u64> = (3..sqrt_n)
-        .into_iter()
+        .into_par_iter()
         .filter(|&i| i % 2 == 1)
         .filter(|&i| n % (i as u128) == 0)
         .collect();
@@ -113,12 +130,12 @@ mod tests {
     const N5: (u128, u128, u128) = (M19, M31, M19 * M31);
     const N6: (u128, u128, u128) = (M13, M13, M13 * M13);
 
-    fn test_serial(N: (u128, u128, u128)) {
-        let result = serial_factorization(N.2);
+    fn test_serial(n: (u128, u128, u128)) {
+        let result = serial_factorization(n.2);
         assert!(result.is_correct());
-        assert_eq!(result.number, N.2);
-        assert_eq!(result.factors[&N.0], 1);
-        assert_eq!(result.factors[&N.1], 1);
+        assert_eq!(result.number, n.2);
+        assert_eq!(result.factors[&n.0], 1);
+        assert_eq!(result.factors[&n.1], 1);
     }
 
     #[test]
@@ -148,18 +165,18 @@ mod tests {
 
     #[test]
     fn test_m13_m13_serial() {
-        let N = N6;
-        let result = serial_factorization(N.2);
+        let n = N6;
+        let result = serial_factorization(n.2);
         assert!(result.is_correct());
-        assert_eq!(result.number, N.2);
-        assert_eq!(result.factors[&N.0], 2);
+        assert_eq!(result.number, n.2);
+        assert_eq!(result.factors[&n.0], 2);
     }
 
-    fn test_parallel(N: (u128, u128, u128)) {
-        let result = parallel_factorization(N.2);
+    fn test_parallel(n: (u128, u128, u128)) {
+        let result = parallel_factorization(n.2);
         assert!(result.is_correct());
-        assert_eq!(result.number, N.2);
-        assert_eq!(dbg!(result.factors)[&N.0], 1);
+        assert_eq!(result.number, n.2);
+        assert_eq!(dbg!(result.factors)[&n.0], 1);
         // assert_eq!(result.factors[&N.1], 1);
     }
 
@@ -190,10 +207,10 @@ mod tests {
 
     #[test]
     fn test_m13_m13_parallel() {
-        let N = N6;
-        let result = parallel_factorization(N.2);
+        let n = N6;
+        let result = parallel_factorization(n.2);
         assert!(result.is_correct());
-        assert_eq!(result.number, N.2);
-        assert_eq!(result.factors[&N.0], 2);
+        assert_eq!(result.number, n.2);
+        assert_eq!(result.factors[&n.0], 2);
     }
 }
