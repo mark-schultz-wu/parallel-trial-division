@@ -7,15 +7,34 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'parallel-trial-division'",
+            "name": "Debug unit tests in library 'trial_division'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--lib",
+                    "--package=trial-division"
+                ],
+                "filter": {
+                    "name": "trial_division",
+                    "kind": "lib"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug executable 'trial-division'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=parallel-trial-division",
-                    "--package=parallel-trial-division"
+                    "--bin=trial-division",
+                    "--package=trial-division"
                 ],
                 "filter": {
-                    "name": "parallel-trial-division",
+                    "name": "trial-division",
                     "kind": "bin"
                 }
             },
@@ -25,17 +44,36 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'parallel-trial-division'",
+            "name": "Debug unit tests in executable 'trial-division'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=parallel-trial-division",
-                    "--package=parallel-trial-division"
+                    "--bin=trial-division",
+                    "--package=trial-division"
                 ],
                 "filter": {
-                    "name": "parallel-trial-division",
+                    "name": "trial-division",
                     "kind": "bin"
+                }
+            },
+            "args": [],
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "Debug benchmark 'my_benchmark'",
+            "cargo": {
+                "args": [
+                    "test",
+                    "--no-run",
+                    "--bench=my_benchmark",
+                    "--package=trial-division"
+                ],
+                "filter": {
+                    "name": "my_benchmark",
+                    "kind": "bench"
                 }
             },
             "args": [],

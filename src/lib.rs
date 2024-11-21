@@ -176,8 +176,8 @@ mod tests {
         let result = parallel_factorization(n.2);
         assert!(result.is_correct());
         assert_eq!(result.number, n.2);
-        assert_eq!(dbg!(result.factors)[&n.0], 1);
-        // assert_eq!(result.factors[&N.1], 1);
+        assert_eq!(result.factors[&n.0], 1);
+        assert_eq!(result.factors[&n.1], 1);
     }
 
     #[test]
