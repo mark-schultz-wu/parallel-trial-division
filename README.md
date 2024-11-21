@@ -16,7 +16,7 @@ These machines are
 
 | Implementation (Laptop) | Time (s) |
 | --- | --- |
-| Serial Python | ??? |
+| Serial Python | 840 (est) |
 | Serial Rust | 20.86 |
 | Parallel Rust | 10.81 |
 
