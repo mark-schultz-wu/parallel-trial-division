@@ -15,14 +15,15 @@ As the (naive) implementation in Python is very slow, I decided to speed it up, 
 As the entire point of this was to obtain timing estimates for various ways of implementing trial division, I've included those estimates below (for the above $N$) on several of my machines.
 These machines are
 
-* "Laptop": Intel i7 1165G7 (4  cores, 2.8GHz) and 16GB of RAM, and
+* "Laptop": Intel i7 1165G7 (4  cores, 2.8GHz) and 16GB of RAM,
+* "Macbook": Macbook M4 Pro (12 cores) with 24GB of RAM, and
 * "Desktop": Ryzen 9 5900X  (12 cores, 3.70 GHz) with 32GB of RAM.
 
-| Implementation | Laptop Time (s) | Desktop Time (s)|
-| --- | --- | --- |
-| Serial Python | 908 | 689|
-| Serial Rust | 20.86 | 16.78 |
-| Parallel Rust | 10.81 | 2.53|
+| Implementation | Laptop Time (s) | Macbook Time (s) | Desktop Time (s)|
+| --- | --- | --- | --- | 
+| Serial Python | 908 | 415| 689|
+| Serial Rust | 20.86 | 24.85| 16.78 |
+| Parallel Rust | 10.81 | 2.53| 4.96|
 
 ## Usage
 
