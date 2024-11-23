@@ -23,7 +23,7 @@ These machines are
 | --- | --- | --- | --- | 
 | Serial Python | 908 | 415| 689|
 | Serial Rust | 20.86 | 24.85| 16.78 |
-| Parallel Rust | 10.81 | 2.53| 4.96|
+| Parallel Rust | 10.81 | 4.96| 2.53|
 
 ## Usage
 
